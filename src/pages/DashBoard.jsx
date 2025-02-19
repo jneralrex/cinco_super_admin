@@ -9,6 +9,9 @@ const DashBoard = () => {
   // Users state
   const { totalUsers, loading: usersLoading, error: usersError } = useSelector((state) => state.users);
 
+  const { cinemas, loading: cinemaLoading, error: cinemaError } = useSelector((state) => state.cinema);
+
+
   const { loading: adsLoading, error: adsError, ads } = useSelector((state) => state.ads);
 
   // Fetch the users and locations data when the component mounts
@@ -39,6 +42,16 @@ const DashBoard = () => {
           `Error: ${adsError}`
         ) : (
           `Total Ads: ${ads?.length || 0}`
+        )}
+      </div>
+
+      <div className="w-full h-52 m-auto border border-red-100 justify-center flex items-center text-gray-900 bg-blue-200 hover:bg-black/80 hover:text-white">
+        {cinemaLoading ? (
+          "Loading cinema..."
+        ) : cinemaError ? (
+          `Error: ${cinemaError}`
+        ) : (
+          `Total cinema: ${cinemas?.length || 0}`
         )}
       </div>
     </div>
