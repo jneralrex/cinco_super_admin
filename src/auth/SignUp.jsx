@@ -42,8 +42,8 @@ const SignUp = () => {
         <img src={Logo} alt="" className="h-40" />
       </div>
       <div className="p-3 max-w-lg mx-auto">
-        <p className="text-center text-2xl text-gray-500 p-2">Web Admin</p>
-        {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+      <p className="text-center text-2xl text-gray-500 p-2">Super Admin</p>
+      {error && <p className="text-red-500 text-sm text-center">{error}</p>}
         <form className="flex flex-col gap-4" onSubmit={register}>
           <label htmlFor="">
             User Name
