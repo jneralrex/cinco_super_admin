@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllUser } from "../redux/slices/usersSlice"; // Adjust import based on your file structure
 import { getAllAds } from "../redux/slices/AdsSlice";
+import { getAllCinema } from "../redux/slices/CinemaSlice";
 
 const DashBoard = () => {
   const dispatch = useDispatch();
@@ -9,17 +10,17 @@ const DashBoard = () => {
   // Users state
   const { totalUsers, loading: usersLoading, error: usersError } = useSelector((state) => state.users);
 
-  const { cinemas, loading: cinemaLoading, error: cinemaError } = useSelector((state) => state.cinema);
+  const { totalCenima, loading: cinemaLoading, error: cinemaError } = useSelector((state) => state.cinema);
 
 
   const { loading: adsLoading, error: adsError, ads } = useSelector((state) => state.ads);
 
   // Fetch the users and locations data when the component mounts
   useEffect(() => {
-    dispatch(getAllUser());
+    dispatch(getAllUser({ page: 1, limit: 10 }));
     dispatch(getAllAds());
-
-  }, [dispatch]);
+    dispatch(getAllCinema({ page: 1, limit: 10 }));
+    }, []);
 
   return (
     <div className="max-h-screen grid grid-cols-1 md:grid-cols-3 w-full gap-2 p-3 md:pt-0 pb-16 lg:pb-5">
@@ -51,7 +52,8 @@ const DashBoard = () => {
         ) : cinemaError ? (
           `Error: ${cinemaError}`
         ) : (
-          `Total cinema: ${cinemas?.length || 0}`
+        `Total cinema: ${totalCenima || 0} 
+       `
         )}
       </div>
     </div>
