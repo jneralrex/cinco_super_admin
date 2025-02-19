@@ -6,7 +6,7 @@ import { signUpWebAdmin } from "../redux/slices/adminSlice";
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const { loading, error } = useSelector((state) => state.superadmin);
+  const { loading, error } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [regWebAdmin, setWebAdmin] = useState({
     username: "",
