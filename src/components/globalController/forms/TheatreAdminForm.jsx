@@ -133,12 +133,6 @@ const TheatreAdminForm = () => {
             {loading ? "Submitting" : "Submit"}
           </button>
         </form>
-        <div className="w-full flex flex-row gap-3">
-          Already have an account?
-          <Link to="/sign-in">
-            <span className="text-blue-600">sign in</span>
-          </Link>
-        </div>
       </div>
     </div>
   );
