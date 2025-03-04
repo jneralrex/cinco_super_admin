@@ -61,7 +61,7 @@ const TheatreAdminForm = () => {
         {error && <p className="text-red-500 text-sm text-center">{error}</p>}
         <form className="flex flex-col gap-4" onSubmit={register}>
           <label htmlFor="">
-            User Name
+            Cinema Name
             <input
               type="text"
               name="cinemaName"
