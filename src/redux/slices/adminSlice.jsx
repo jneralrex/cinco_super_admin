@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import Api from "../../utils/AxiosInstance";
+import axios from "axios";
 
 const initialState = {
   loading: false,
@@ -8,11 +9,10 @@ const initialState = {
 };
 
 export const loggWebAdmin = createAsyncThunk(
-  'admin/loggWebAdmin',
+  'user/loggWebAdmin',
   async (credentials, { rejectWithValue }) => {
     try {
       const res = await Api.post(`auth/signin`, credentials,{ withCredentials: true });
-      console.log(res.data)
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
@@ -21,7 +21,7 @@ export const loggWebAdmin = createAsyncThunk(
 );
 
 export const signUpWebAdmin = createAsyncThunk(
-  'admin/signUpWebAdmin',
+  'user/signUpWebAdmin',
   async (credentials, { rejectWithValue }) => {
     try {
       const res = await Api.post(`auth/signup`, credentials,{ withCredentials: true });
@@ -33,12 +33,10 @@ export const signUpWebAdmin = createAsyncThunk(
 );
 
 export const logOut = createAsyncThunk(
-  'admin/logOut',
-  async (credentials, { rejectWithValue }) => {
+  'user/logOut',
+  async ( _, { rejectWithValue }) => {
     try {
-      const res = await Api.post(`theatre/signout`, credentials,{ withCredentials: true });
-      console.log(res.data);
-      return res.data;
+      const res = await Api.post(`auth/signout`, null, { withCredentials: true });
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
     }
@@ -46,7 +44,7 @@ export const logOut = createAsyncThunk(
 );
 
 const webAdminSlice = createSlice({
-  name: "web-admin",
+  name: "user",
   initialState, 
   reducers: {},
   extraReducers: (builder) => {

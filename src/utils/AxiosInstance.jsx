@@ -32,21 +32,18 @@ Api.interceptors.response.use(
     const originalRequest = error.config;
 
     if (
-      (error.response?.status === 403 || error.response?.status === 401) &&
+      (error) &&
       !originalRequest._retry
     ) {
       originalRequest._retry = true;
 
       try {
-        const { data } = await axios.post(`${import.meta.env.VITE_BASE_URL}/auth/refreshtoken`, {}, { withCredentials: true });
+        const { data } = await axios.post(`${import.meta.env.VITE_BASE_URL}auth/refreshtoken`, {}, { withCredentials: true });
 
         document.cookie = `accesstoken=${data.token}; path=/; secure; SameSite=Strict`;
         originalRequest.headers.Authorization = `Bearer ${data.token}`;
         return Api(originalRequest);
       } catch (refreshError) {
-        console.error('Token refresh failed:', refreshError);
-
-        alert('Your session has expired. Please sign in again.');
         window.location.replace('/sign-in'); 
         return Promise.reject(refreshError);
       }
@@ -56,7 +53,6 @@ Api.interceptors.response.use(
       console.error('Server error occurred:', error.response.data);
       alert('An unexpected error occurred. Please try again later.');
     }
-
     return Promise.reject(error);
   }
 );

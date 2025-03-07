@@ -22,6 +22,14 @@ const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
 
+  const handleLogout = () => {
+    dispatch(logOut()).then((action)=>{
+      if (action.type === "user/logOut/fulfilled") {
+        navigate("/sign-in"); 
+      }
+    })
+  };
+  
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -30,25 +38,18 @@ const Nav = () => {
     setIsOpen(false);
   };
 
-  const handleLogout = () => {
-    dispatch(logOut()).then((action)=>{
-      if (action.type === "admin/logOut/fulfilled") {
-        navigate("/sign-in"); 
-      }
-    })
-  };
+
 
   const navItems = [
     { icon: <MdHome />, label: "Overview", path: "/dashboard" },
     { icon: <MdOutlineManageAccounts />, label: "User management", path: "/user-management" },
-    { icon: [<FaMasksTheater />, <GrUserAdmin />], label: "Cinema Admin Mgt", path: "/cinema-admin" },
+    { icon: [<FaMasksTheater key="teahtre"/>, <GrUserAdmin key="admin"/>], label: "Cinema Admin Mgt", path: "/cinema-admin" },
     { icon: <FaRegNewspaper />, label: "News", path: "/news" },
     { icon: <PiTelevisionSimpleThin />, label: "Ads", path: "/ads" },
     { icon: <FaPen />, label: "Report", path: "/report" },
     { icon: <CiSettings />, label: "General Settings", path: "/settings" },
   ];
 
-  console.log("check",loggedAdmin.user.username)
   return (
     <div>
       <div className="">
@@ -60,8 +61,8 @@ const Nav = () => {
               <CiLogout className="text-xl" /> Logout
             </button>
           </div>
-          <div className=" ml-10 lg:block mt-auto p-2 lg:ml-0 border-purple-600 lg:bg-purple-700 fixed top-0 w-[262px] z-20 text-white">
-           {loggedAdmin.user.username}
+          <div className=" ml-10 lg:block mt-auto p-2 lg:ml-0 border-purple-600 lg:bg-purple-700 fixed top-0 w-[262px] z-[99] text-white">
+           {loggedAdmin?.user?.username}
           </div>
       </div>
       <div className="flex flex-col lg:flex-row justify-between max-h-screen bg-gray-50">

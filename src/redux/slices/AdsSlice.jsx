@@ -18,7 +18,6 @@ const initialState = {
 export const getAllAds = createAsyncThunk("ads/getAllAds", async(_,{rejectWithValue})=>{
     try {
         const res = await Api.get(`ads/all-advertisements `)
-        console.log(res)
         return res.data;
     } catch (error) {
         return rejectWithValue(error.response?.data?.message || error.message);
@@ -28,8 +27,6 @@ export const getAllAds = createAsyncThunk("ads/getAllAds", async(_,{rejectWithVa
 export const createAds = createAsyncThunk("ads/createAds", async (formData, { rejectWithValue }) => {
     try {
       const res = await Api.post(`ads/create-advertisement`, formData);
-      console.log("Payload Sent to API:", formData);
-      console.log(res)
       return res.data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
@@ -81,7 +78,6 @@ export const createAds = createAsyncThunk("ads/createAds", async (formData, { re
     try {
         const decryptedId = decryptId(adsId)
         const res = await Api.get(`ads/single-advertisement/${decryptedId}`);
-        console.log(res)
         return res.data.data;
     } catch (error) {
         return rejectWithValue(error.response?.data?.message || error.message);

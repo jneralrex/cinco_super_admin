@@ -25,11 +25,12 @@ const SignIn = () => {
       return;
     }
     dispatch(loggWebAdmin(signInAdmin)).then((action) => {
-      if (action.type === "admin/loggWebAdmin/fulfilled") {
+      if (action.type === "user/loggWebAdmin/fulfilled") {
         navigate("/dashboard");
       }
     });
   };
+
 
   return (
     <div>
@@ -38,7 +39,9 @@ const SignIn = () => {
       </div>
       <div className="p-3 max-w-lg mx-auto">
         <p className="text-center text-2xl text-gray-500 p-2">Super Admin</p>
-        {error && <p className="text-red-500 text-sm text-center">{error}</p>}
+        {error === "Refresh token is required" || "Invalid refresh token" ? "" : error && (
+  <p className="text-red-500 text-sm text-center">{error}</p>
+)}
         <form className="flex flex-col gap-4" onSubmit={handleSignIn}>
           <label>
             <input
